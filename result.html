@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Trip Budget Result</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+
+
+<body>
+
+<div class="container">
+
+<h1>Trip Budget Analysis Result</h1>
+
+<table>
+
+<tr>
+<th>Category</th>
+<th>Cost Per Person Per Day (₹)</th>
+</tr>
+
+<tr><td>Living / Hotel</td><td id="hotel"></td></tr>
+<tr><td>Travel / Transport</td><td id="travel"></td></tr>
+<tr><td>Food</td><td id="food"></td></tr>
+<tr><td>Shopping</td><td id="shopping"></td></tr>
+<tr><td>Entertainment</td><td id="entertainment"></td></tr>
+<tr><td>Local Transport</td><td id="localTransport"></td></tr>
+<tr><td>Miscellaneous</td><td id="miscellaneous"></td></tr>
+
+<tr><th>Total Per Day</th><th id="dailyTotal"></th></tr>
+<tr><th>Total Trip Cost</th><th id="tripTotal"></th></tr>
+
+</table>
+
+<button onclick="startNewTrip()">Start New Trip</button>
+<p class="credit"> Designed & Developed by ADITYA SAVALIYA</p>
+</div>
+
+<script>
+
+//////////////////////////////////////////////////
+// DATABASE (ALL CITIES INCLUDED)
+//////////////////////////////////////////////////
+
+const cityCosts = {
+
+Agra: createCity(900,300,400),
+Ahmedabad: createCity(800,260,340),
+Ajmer: createCity(800,250,330),
+Amritsar: createCity(900,300,380),
+Andaman: createCity(1500,600,700),
+
+Bangalore: createCity(1000,350,450),
+Bhavnagar: createCity(700,220,300),
+Bhopal: createCity(800,250,330),
+Bhubaneswar: createCity(850,260,340),
+Bilaspur: createCity(700,200,300),
+
+Chandigarh: createCity(1000,350,420),
+Chennai: createCity(950,320,420),
+Coimbatore: createCity(900,300,380),
+Cuttack: createCity(850,260,340),
+Calicut: createCity(900,300,380),
+
+Darjeeling: createCity(950,320,400),
+Dehradun: createCity(900,300,380),
+Delhi: createCity(1000,350,450),
+Dharamshala: createCity(950,300,380),
+Diu: createCity(900,300,380),
+
+Ernakulam: createCity(900,300,380),
+Erode: createCity(800,260,340),
+
+Faridabad: createCity(900,300,380),
+Firozpur: createCity(750,220,300),
+
+Gangtok: createCity(1000,350,420),
+Goa: createCity(900,300,400),
+Gurgaon: createCity(1000,350,450),
+Guwahati: createCity(950,320,400),
+Gwalior: createCity(850,260,340),
+
+Haridwar: createCity(900,300,380),
+Hisar: createCity(750,220,300),
+Hosur: createCity(800,260,340),
+Hyderabad: createCity(950,320,420),
+
+Indore: createCity(800,250,330),
+Itanagar: createCity(950,320,400),
+
+Jaipur: createCity(900,300,400),
+Jaisalmer: createCity(950,320,400),
+Jalandhar: createCity(850,260,340),
+Jammu: createCity(950,320,400),
+Jodhpur: createCity(900,300,400),
+
+Kanchipuram: createCity(850,260,340),
+Kanpur: createCity(850,260,340),
+Kanyakumari: createCity(950,320,400),
+Kochi: createCity(950,320,420),
+Kolkata: createCity(900,300,400),
+
+Leh: createCity(1300,500,600),
+Lucknow: createCity(820,260,340),
+Ludhiana: createCity(850,260,340),
+
+Madurai: createCity(900,300,380),
+Manali: createCity(850,300,380),
+Mangalore: createCity(900,300,400),
+Mumbai: createCity(1200,400,500),
+Mussoorie: createCity(900,300,380),
+
+Nagpur: createCity(850,260,340),
+Nainital: createCity(900,300,380),
+Nashik: createCity(900,300,380),
+Noida: createCity(950,320,400),
+
+Ooty: createCity(900,300,380),
+
+Patna: createCity(780,240,320),
+Pondicherry: createCity(900,300,400),
+Pune: createCity(900,300,400),
+Pushkar: createCity(850,260,340),
+
+Raipur: createCity(800,250,330),
+Rajkot: createCity(800,260,340),
+Ranchi: createCity(800,250,330),
+Rishikesh: createCity(900,300,380),
+
+Shimla: createCity(850,300,380),
+Surat: createCity(800,250,350),
+Srinagar: createCity(1000,350,450),
+Siliguri: createCity(850,260,340),
+Salem: createCity(800,260,340),
+
+Thane: createCity(950,320,400),
+Thrissur: createCity(900,300,380),
+Tirupati: createCity(850,260,340),
+Trivandrum: createCity(950,320,420),
+
+Udaipur: createCity(900,300,400),
+
+Vadodara: createCity(800,260,340),
+Varanasi: createCity(900,300,380),
+Vellore: createCity(850,260,340),
+Visakhapatnam: createCity(950,320,420),
+
+Warangal: createCity(800,260,340),
+
+Yamunanagar: createCity(750,220,300)
+
+};
+
+function createCity(hotel, travel, food) {
+
+return {
+
+budget: {
+hotel: hotel,
+travel: travel,
+food: food,
+shopping: Math.round(food * 0.5),
+entertainment: Math.round(food * 0.3),
+localTransport: Math.round(travel * 0.4),
+miscellaneous: 100
+},
+
+moderate: {
+hotel: Math.round(hotel * 1.4),
+travel: Math.round(travel * 2),
+food: Math.round(food * 1.8),
+shopping: Math.round(food * 1.0),
+entertainment: Math.round(food * 0.6),
+localTransport: Math.round(travel * 0.8),
+miscellaneous: 150
+},
+
+luxury: {
+hotel: Math.round(hotel * 2),
+travel: Math.round(travel * 3.5),
+food: Math.round(food * 2),
+shopping: Math.round(food * 2),
+entertainment: Math.round(food * 1.2),
+localTransport: Math.round(travel * 1.5),
+miscellaneous: 250
+}
+
+};
+
+}
+
+//////////////////////////////////////////////////
+// CALCULATION
+//////////////////////////////////////////////////
+
+function calculateTrip() {
+
+let city = localStorage.getItem("city");
+let style = localStorage.getItem("style");
+let days = parseInt(localStorage.getItem("days")) || 1;
+let adults = parseInt(localStorage.getItem("adults")) || 1;
+let children = parseInt(localStorage.getItem("children")) || 0;
+
+if (!cityCosts[city]) {
+alert("City not found");
+window.location.href = "index.html";
+return;
+}
+
+let costs = cityCosts[city][style];
+
+document.getElementById("hotel").innerText = costs.hotel;
+document.getElementById("travel").innerText = costs.travel;
+document.getElementById("food").innerText = costs.food;
+document.getElementById("shopping").innerText = costs.shopping;
+document.getElementById("entertainment").innerText = costs.entertainment;
+document.getElementById("localTransport").innerText = costs.localTransport;
+document.getElementById("miscellaneous").innerText = costs.miscellaneous;
+
+let dailyTotal =
+costs.hotel +
+costs.travel +
+costs.food +
+costs.shopping +
+costs.entertainment +
+costs.localTransport +
+costs.miscellaneous;
+
+let people = adults + children;
+let totalTripCost = dailyTotal * days * people;
+
+document.getElementById("dailyTotal").innerText = "₹ " + dailyTotal;
+document.getElementById("tripTotal").innerText = "₹ " + totalTripCost;
+
+}
+
+function startNewTrip() {
+localStorage.clear();
+window.location.href = "index.html";
+}
+
+calculateTrip();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Travel Budget Analyzer</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Travel Budget Analyzer</h1>
+
+<label>Select City:</label>
+
+<br><br>
+
+<select id="citySelect" required>
+
+<option value="">-- Select City --</option>
+
+<!-- A -->
+<option>Agra</option>
+<option>Ahmedabad</option>
+<option>Ajmer</option>
+<option>Amritsar</option>
+<option>Andaman</option>
+
+<!-- B -->
+<option>Bangalore</option>
+<option>Bhavnagar</option>
+<option>Bhopal</option>
+<option>Bhubaneswar</option>
+<option>Bilaspur</option>
+
+<!-- C -->
+<option>Chandigarh</option>
+<option>Chennai</option>
+<option>Coimbatore</option>
+<option>Cuttack</option>
+<option>Calicut</option>
+
+<!-- D -->
+<option>Darjeeling</option>
+<option>Dehradun</option>
+<option>Delhi</option>
+<option>Dharamshala</option>
+<option>Diu</option>
+
+<!-- E -->
+<option>Ernakulam</option>
+<option>Erode</option>
+
+<!-- F -->
+<option>Faridabad</option>
+<option>Firozpur</option>
+
+<!-- G -->
+<option>Gangtok</option>
+<option>Goa</option>
+<option>Gurgaon</option>
+<option>Guwahati</option>
+<option>Gwalior</option>
+
+<!-- H -->
+<option>Haridwar</option>
+<option>Hisar</option>
+<option>Hosur</option>
+<option>Hyderabad</option>
+
+<!-- I -->
+<option>Indore</option>
+<option>Itanagar</option>
+
+<!-- J -->
+<option>Jaipur</option>
+<option>Jaisalmer</option>
+<option>Jalandhar</option>
+<option>Jammu</option>
+<option>Jodhpur</option>
+
+<!-- K -->
+<option>Kanchipuram</option>
+<option>Kanpur</option>
+<option>Kanyakumari</option>
+<option>Kochi</option>
+<option>Kolkata</option>
+
+<!-- L -->
+<option>Leh</option>
+<option>Lucknow</option>
+<option>Ludhiana</option>
+
+<!-- M -->
+<option>Madurai</option>
+<option>Manali</option>
+<option>Mangalore</option>
+<option>Mumbai</option>
+<option>Mussoorie</option>
+
+<!-- N -->
+<option>Nagpur</option>
+<option>Nainital</option>
+<option>Nashik</option>
+<option>Noida</option>
+
+<!-- O -->
+<option>Ooty</option>
+
+<!-- P -->
+<option>Patna</option>
+<option>Pondicherry</option>
+<option>Pune</option>
+<option>Pushkar</option>
+
+<!-- R -->
+<option>Raipur</option>
+<option>Rajkot</option>
+<option>Ranchi</option>
+<option>Rishikesh</option>
+
+<!-- S -->
+<option>Shimla</option>
+<option>Surat</option>
+<option>Srinagar</option>
+<option>Siliguri</option>
+<option>Salem</option>
+
+<!-- T -->
+<option>Thane</option>
+<option>Thrissur</option>
+<option>Tirupati</option>
+<option>Trivandrum</option>
+
+<!-- U -->
+<option>Udaipur</option>
+
+<!-- V -->
+<option>Vadodara</option>
+<option>Varanasi</option>
+<option>Vellore</option>
+<option>Visakhapatnam</option>
+
+<!-- W -->
+<option>Warangal</option>
+
+<!-- Y -->
+<option>Yamunanagar</option>
+
+</select>
+
+<br><br>
+
+<button onclick="goToNextPage()">Next</button>
+
+</div>
+
+<script>
+function goToNextPage() {
+    let city = document.getElementById("citySelect").value;
+
+    if (city === "") {
+        alert("Please select a city");
+        return;
+    }
+
+    localStorage.setItem("city", city);
+    window.location.href = "details.html";
+}
+</script>
+
+</body>
+</html>

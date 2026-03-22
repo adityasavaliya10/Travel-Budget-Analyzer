@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Trip Details</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Trip Details</h1>
+
+<label>Travel Style:</label>
+
+<br><br>
+
+<label class="radio-option">
+    <input type="radio" name="style" value="budget"> Budget
+</label>
+
+<br><br>
+
+<label class="radio-option">
+    <input type="radio" name="style" value="moderate"> Moderate
+</label>
+
+<br><br>
+
+<label class="radio-option">
+    <input type="radio" name="style" value="luxury"> Luxury
+</label>
+<br><br><br>
+
+<label>Number of Days:</label>
+
+<br><br>
+
+<input type="number" id="days" min="1" value="1">
+
+<br><br><br>
+
+<button onclick="goNext()">Next</button>
+
+</div>
+
+<script>
+function goNext() {
+    let selectedStyle = document.querySelector('input[name="style"]:checked');
+
+    if (!selectedStyle) {
+        alert("Please select a travel style");
+        return;
+    }
+
+    let style = selectedStyle.value;
+    let days = document.getElementById("days").value;
+
+    localStorage.setItem("style", style);
+    localStorage.setItem("days", days);
+
+    window.location.href = "people.html";
+}
+</script>
+
+</body>
+</html>
